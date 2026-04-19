@@ -101,20 +101,20 @@ The database is composed of several tables:
 
 ### Steps
 
-1. Create the database in MySQL:
+1. Open MySQL (or phpMyAdmin)
 
-   CREATE DATABASE airline_management;
+2. Run the SQL script provided in the project: schema.sql
 
-2. Create all necessary tables (airports, passengers, aircrafts, flights, reservations, reservation_flights)
+   This will automatically create the database and all required tables.
 
-3. Open the file `DatabaseConnection.java` and verify the connection settings:
+3. Open `DatabaseConnection.java` and verify:
    - URL
    - username
    - password
 
-4. Run the application by executing `Main.java`
+4. Run the application using: Main.java
 
-5. Use the console menu to interact with the system
+5. Use the console menu to test the system.
 
 ---
 
