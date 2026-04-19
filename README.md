@@ -1,116 +1,82 @@
-# ✈️ Airline Management System (Java + MySQL)
+# Airline Management System
 
-## 1. Introduction
+## Introduction
 
-This project is a console-based Airline Management System developed in Java.  
-It allows managing passengers, flights, aircraft, and reservations using a structured object-oriented design.
+This project is a console-based Airline Management System developed in Java as part of an academic assignment.  
+It allows managing the main elements of an airline such as passengers, flights, aircraft, and reservations.
 
-The application was initially built using in-memory storage (ArrayLists) and later extended with a MySQL database using JDBC for persistent data storage.
-
----
-
-## 2. Project Structure
-
-The project follows a layered architecture:
-
-```
-
-src/main/java
-│
-├── app
-│   └── Main.java
-│
-├── model
-│   ├── Person.java
-│   ├── Employee.java
-│   ├── Passenger.java
-│   ├── AirplanePilot.java
-│   ├── StaffCabin.java
-│   ├── Aircraft.java
-│   ├── Flight.java
-│   ├── Reservation.java
-│   ├── Airport.java
-│   ├── FlightStatus.java
-│   └── ReservationStatus.java
-│
-├── service
-│   ├── PassengerService.java
-│   ├── FlightService.java
-│   ├── ReservationService.java
-│   └── AircraftService.java
-│
-└── database
-├── DatabaseConnection.java
-├── AirportDAO.java
-├── PassengerDAO.java
-├── AircraftDAO.java
-├── FlightDAO.java
-└── ReservationDAO.java
-
-```
+The system was initially implemented using in-memory data structures (ArrayLists), then extended by integrating a MySQL database using JDBC in order to make the data persistent.
 
 ---
 
-## 3. Features
+## Project Overview
 
-The system supports the following functionalities:
+The application simulates basic airline operations. Through a menu in the console, the user can create and manage passengers, flights, and reservations.
+
+The project follows a layered approach:
+
+- The **model layer** represents the main entities (Passenger, Flight, Reservation, etc.)
+- The **service layer** handles logic in memory (initial version)
+- The **database layer (DAO)** handles data storage and retrieval using MySQL
+
+The final version mainly uses the database layer for data persistence.
+
+---
+
+## Main Functionalities
 
 ### Passenger Management
-- Add a passenger
-- View passenger information
+- Add a new passenger with personal information
+- Retrieve passenger data by ID
+- Store passenger data in the database
 
 ### Flight Management
-- Add a flight
-- Assign an aircraft (optional)
-- Cancel a flight
-- View all flights
+- Create a flight with origin, destination, and schedule
+- Assign an aircraft to a flight (optional)
+- Cancel an existing flight
+- Display all available flights
 
 ### Aircraft Management
-- Add an aircraft
-- Store aircraft details (model, capacity)
+- Add new aircraft with model and capacity
+- Store aircraft information in the database
 
 ### Reservation Management
-- Create a reservation for a passenger
+- Create a reservation linked to a passenger
 - Add one or multiple flights to a reservation
+- Store reservations in the database
 - Cancel a reservation
-- View all reservations
+- View all reservations with their flights
 
-### Additional Features
-- Display all passengers of a specific flight
-- Use of enums for status management (FlightStatus, ReservationStatus)
-- Console-based interactive menu
+### Additional Feature
+- Display all passengers assigned to a specific flight using database queries
 
 ---
 
-## 4. Technologies Used
+## Technologies Used
 
-- Java (OOP concepts)
+- Java (Object-Oriented Programming)
 - JDBC (Java Database Connectivity)
-- MySQL (database)
+- MySQL (database management)
 - Maven (dependency management)
 
 ---
 
-## 5. Database Design
+## Database Design
 
-The project uses a relational database named:
-
-```
+The project uses a MySQL database named:
 
 airline_management
 
-````
+The database is composed of several tables:
 
-### Tables:
+- **airports**: stores airport information (name, city, description)
+- **passengers**: stores passenger data
+- **aircrafts**: stores aircraft information
+- **flights**: stores flight details and links to airports and aircraft
+- **reservations**: stores reservation information linked to passengers
+- **reservation_flights**: intermediate table linking reservations and flights
 
-- **airports**
-- **passengers**
-- **aircrafts**
-- **flights**
-- **reservations**
-- **reservation_flights** (junction table)
-
-### Relationships:
+### Relationships
 
 - A flight is linked to:
   - one origin airport
@@ -119,13 +85,13 @@ airline_management
 
 - A reservation:
   - belongs to one passenger
-  - can contain multiple flights
+  - can include multiple flights
 
-- The `reservation_flights` table enables a **many-to-many relationship** between reservations and flights.
+- The `reservation_flights` table enables a many-to-many relationship between reservations and flights.
 
 ---
 
-## 6. How to Run
+## How to Run the Project
 
 ### Requirements
 
@@ -135,66 +101,46 @@ airline_management
 
 ### Steps
 
-1. Create the database:
+1. Create the database in MySQL:
 
-```sql
-CREATE DATABASE airline_management;
-````
+   CREATE DATABASE airline_management;
 
-2. Create all required tables (airports, passengers, aircrafts, flights, reservations, reservation_flights)
+2. Create all necessary tables (airports, passengers, aircrafts, flights, reservations, reservation_flights)
 
-3. Configure database connection in:
+3. Open the file `DatabaseConnection.java` and verify the connection settings:
+   - URL
+   - username
+   - password
 
-```
-DatabaseConnection.java
-```
+4. Run the application by executing `Main.java`
 
-```java
-private static final String URL = "jdbc:mysql://localhost:3306/airline_management";
-private static final String USER = "root";
-private static final String PASSWORD = "";
-```
-
-4. Run the application:
-
-```
-Main.java
-```
-
-5. Use the console menu to interact with the system.
+5. Use the console menu to interact with the system
 
 ---
 
-## 7. Design Choices
+## Design Choices
 
-* DAO pattern used for database access
-* Separation between model, service, and database layers
-* JDBC used for persistence
-* Transactions used when creating reservations
-* Enums used instead of strings for statuses
-* Simplified date handling using `String`
+Several design decisions were made during the development:
 
----
-
-## 8. Limitations
-
-* Crew (pilot and cabin crew) is not stored in the database
-* No GUI (console-based application only)
-* Date handling could be improved using `LocalDateTime`
-* Basic input validation
+- Use of the **DAO pattern** to separate database logic from business logic
+- Keeping the **service layer** for the initial in-memory implementation
+- Direct interaction with DAO classes in the final version for simplicity
+- Use of **transactions** when inserting reservations to ensure data consistency
+- Use of **enums** for managing flight and reservation status instead of raw strings
 
 ---
 
-## 9. Conclusion
+## Limitations
 
-This project demonstrates the use of object-oriented programming in Java combined with database integration using MySQL and JDBC.
+- Crew members (pilot and cabin crew) are not stored in the database yet
+- The application uses a console interface not graphical UI for now
 
-It covers essential concepts such as:
+---
 
-* class design and relationships
-* data persistence
-* layered architecture (DAO pattern)
+## Conclusion
 
-The system is functional, extensible, and provides a solid foundation for further improvements.
+This project demonstrates the application of object-oriented programming in Java combined with database integration using MySQL and JDBC.
 
+It provides a functional system for managing airline operations and highlights key concepts such as class design, relationships, and data persistence.
 
+The project can be extended in the future by adding features such as a graphical interface, improved validation, or full management of airline staff.
