@@ -142,5 +142,3 @@ Several design decisions were made during the development:
 This project demonstrates the application of object-oriented programming in Java combined with database integration using MySQL and JDBC.
 
 It provides a functional system for managing airline operations and highlights key concepts such as class design, relationships, and data persistence.
-
-The project can be extended in the future by adding features such as a graphical interface, improved validation, or full management of airline staff.
